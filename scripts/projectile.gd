@@ -5,15 +5,18 @@ var speed = 400
 
 # TODO: Add direction variable to store which way to move
 var direction = Vector2(1,0)
-
+var is_attacking
 var current_enemy
 func _physics_process(_delta):
 	# TODO: Calculate movement using direction and speed
 	# Similar to player movement: velocity = direction * speed
 	position += speed * direction * _delta
 	
+	if Input.is_action_just_pressed("ui_select"):
+		is_attacking = true	
 	
-	
+	if current_enemy != null and is_attacking:
+			current_enemy.queue_free()
 	# TODO: Apply the movement
 	# Use: move_and_slide()
 	#move_and_slide()
@@ -53,7 +56,6 @@ func _on_melee_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemy"):
 		current_enemy = body
 		print("enemy got shot!")
-		queue_free()
 func _on_melee_body_exited(body: Node2D) -> void:
 	if body.is_in_group("enemy"):
 		current_enemy = null

@@ -80,7 +80,9 @@ func _physics_process(_delta):
 	# TODO: Actually apply the movement
 	# This is a special Godot function that makes the movement happen
 	move_and_slide()
-	
+	if Input.is_action_just_pressed("ui_text_delete"):
+		queue_free()
+		die()
 	if Input.is_action_just_pressed("ui_select"):
 		is_attacking = true	
 	if is_attacking:
@@ -180,5 +182,4 @@ func _on_melee_body_exited(body: Node2D) -> void:
 
 #In projectile? maybe still in player try to make the projectiles do damage.
 #hitting levers use same code as melee as well as keys
-#we're doing that next class when he's gone
-#fix lever sprites
+#fix lever sprites - canvas once it unbricks itself
