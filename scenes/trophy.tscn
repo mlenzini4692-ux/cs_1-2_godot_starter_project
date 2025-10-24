@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://bkfitmjt38iui"]
+
+[ext_resource type="Script" uid="uid://7ohkdmws4hfk" path="res://scenes/trophy.gd" id="1_dhcmp"]
+[ext_resource type="Texture2D" uid="uid://cysdl2yel5w6t" path="res://sprites/trophy.png" id="1_nxsgq"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dhcmp"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jajkd"]
+atlas = ExtResource("1_nxsgq")
+region = Rect2(0, 0, 33, 47)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5lkj5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jajkd")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="trophy" type="Area2D"]
+script = ExtResource("1_dhcmp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_dhcmp")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_5lkj5")

@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://ccymai156a6dr" path="res://scenes/health.tscn" id="2_4j08g"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7mjjf"]
-size = Vector2(69.125, 68)
+size = Vector2(61.28125, 60)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_regxq"]
 atlas = ExtResource("1_pg0pt")
@@ -25,6 +25,7 @@ animations = [{
 scale = Vector2(0.5, 0.5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1.359375, -2)
 shape = SubResource("RectangleShape2D_7mjjf")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

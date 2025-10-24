@@ -1,16 +1,19 @@
 extends CharacterBody2D
 @onready var _animation_player: AnimatedSprite2D = $AnimatedSprite2D
 var projectile_scene = preload("res://scenes/projectile.tscn")
-
 var xSpeed = 200.0
 var xDirection = 0
 var facing = "down"
 var ySpeed = 200.0
 var yDirection = 0
 var coins = 0
+var keys = 0
 @onready var melee_hitbox: CollisionShape2D = $Melee/melee_hitbox
 var current_enemy
-var current_LEVER
+var lever1 = false
+var lever2 = false
+var lever3 = false
+var lever4 = false
 var is_attacking = false
 var attack_timer = .67
 var enemy_timer = .67
@@ -18,14 +21,14 @@ var enemy
 # TODO: Add health system variables
 @export var maxHealth = 100
 @export var health = 100
-
 # TODO: Add projectile scene for shooting
 # var projectile_scene = preload("res://scenes/projectile.tscn")
-
 func change_coins(amount:int):
 	coins += amount
 	print ("you have collected " + str(coins) + " coins")
-
+func change_keys(amount:int):
+	keys += amount
+	print ("you have collected " + str(keys) + " keys")
 func _physics_process(_delta):
 	# TODO: Get horizontal input (left/right keys)
 	# Input.get_axis checks two keys and gives us a number:
@@ -33,26 +36,23 @@ func _physics_process(_delta):
 	# - When RIGHT is pressed: returns 1.0  
 	# - When NOTHING is pressed: returns 0.0
 	xDirection = Input.get_axis("ui_left", "ui_right")
-	
 	# TODO: Get vertical input (up/down keys)  
 	# Same idea, but for up and down movement
 	yDirection = Input.get_axis("ui_up", "ui_down")
-	
-
 	# TODO: Calculate X movement by multiplying direction × speed
 	# This gives us the actual pixels to move this frame
 	# If direction is 1 and speed is 300, we get 300 pixels right
 	# If direction is -1 and speed is 300, we get -300 pixels (left)
 	velocity.x = xSpeed*xDirection
-	
 	# TODO: Calculate Y movement the same way
 	velocity.y = ySpeed*yDirection
-	
 	# TODO: Set the player's velocity (how fast they're moving)
 	# Godot's CharacterBody2D uses a velocity system
 	
-	
-	
+	if lever1 and lever4 and lever2 and !lever3:
+		die()
+		
+		
 	# TODO: Update facing direction based on movement
 	# Use if statements to check xDirection and yDirection
 	# Set facing to "right", "left", "down", or "up"
@@ -69,11 +69,8 @@ func _physics_process(_delta):
 	elif yDirection <0:
 		facing = "up"	
 		melee_hitbox.position = Vector2(0,-45)
-		
-		
 	if Input.is_action_just_pressed("ui_accept"):
 		shoot()
-		
 	# TODO: Update animation based on facing direction
 	# Call your update_animation() function here
 	update_animation()
@@ -81,7 +78,6 @@ func _physics_process(_delta):
 	# This is a special Godot function that makes the movement happen
 	move_and_slide()
 	if Input.is_action_just_pressed("ui_text_delete"):
-		queue_free()
 		die()
 	if Input.is_action_just_pressed("ui_select"):
 		is_attacking = true	
@@ -90,18 +86,14 @@ func _physics_process(_delta):
 		if attack_timer <0:
 			is_attacking = false
 			attack_timer = .67
-		
 	if current_enemy != null and is_attacking:
 			current_enemy.queue_free()
-	
 	if Input.is_action_just_pressed("ui_focus_next"):
 		ySpeed = 400
 		xSpeed = 400
-	
 	if Input.is_action_just_released("ui_focus_next"):
 		ySpeed = 200
 		xSpeed = 200
-	
 # TODO: Create animation function (add this outside of _physics_process)
 func update_animation():
 	if is_attacking == true:
@@ -109,15 +101,11 @@ func update_animation():
 	elif xDirection == 0 && yDirection == 0:
 		_animation_player.play("idle_"+ facing)
 	else: _animation_player.play("walk_"+ facing)
-	
-	
 		# TODO: Set the animation based  on the facing direction
 		# Use: _animation_player.play("idle_" + facing)
 		# This combines "idle_" with whatever direction we're facing
-
 	#if body is in group enemy and attacking:
 		#hurt enemy
-	
 # TODO: Create health change function for interactions
 func change_health(amount):
 	# TODO: Add amount to health (positive = heal, negative = damage)
@@ -167,7 +155,7 @@ func die():
 		get_parent().add_child(new_game_over)
 		new_game_over.global_position = position
 		new_game_over.position = Vector2(580,550)
-		#scale_amount_set_param(4)
+		queue_free()
 
 	
 
