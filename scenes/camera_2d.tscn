@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://dbbqg1iivp7nd"]
+
+[node name="Camera2D" type="Camera2D"]
+zoom = Vector2(2, 2)
+
+[node name="CoinsText" type="Label" parent="."]
+offset_left = -288.27
+offset_top = -161.51
+offset_right = -237.27
+offset_bottom = -138.51
+text = "Coins: "
+
+[node name="HealthText" type="Label" parent="."]
+offset_left = -288.27
+offset_top = -137.51
+offset_right = -248.27
+offset_bottom = -114.51
+text = "Health: 100"

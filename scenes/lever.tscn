@@ -1,24 +1,24 @@
 [gd_scene load_steps=8 format=3 uid="uid://bqwd7uptu4bbq"]
 
-[ext_resource type="Texture2D" uid="uid://bl5vm2j0n6sxa" path="res://sprites/Tiles/items/ALever.png" id="1_iorl1"]
 [ext_resource type="Script" uid="uid://dbwgynl4w3noc" path="res://scripts/lever1.gd" id="1_ncfea"]
+[ext_resource type="Texture2D" uid="uid://dyd3we13ntrec" path="res://sprites/ALever.png" id="2_ncfea"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1kcve"]
 size = Vector2(81, 56.5)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ncfea"]
-atlas = ExtResource("1_iorl1")
-region = Rect2(0, 0, 59, 64)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_qxmkn"]
-atlas = ExtResource("1_iorl1")
+atlas = ExtResource("2_ncfea")
 region = Rect2(81, 0, 81, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8di2w"]
+atlas = ExtResource("2_ncfea")
+region = Rect2(0, 0, 81, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_3d23c"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ncfea")
+"texture": SubResource("AtlasTexture_qxmkn")
 }],
 "loop": true,
 "name": &"off",
@@ -26,7 +26,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_qxmkn")
+"texture": SubResource("AtlasTexture_8di2w")
 }],
 "loop": true,
 "name": &"on",
@@ -41,18 +41,18 @@ scale = Vector2(0.5, 0.5)
 script = ExtResource("1_ncfea")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -28)
+position = Vector2(10, -28)
 shape = SubResource("RectangleShape2D_1kcve")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-40, -64)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." groups=["LEVER"]]
+position = Vector2(-44, -64)
 sprite_frames = SubResource("SpriteFrames_3d23c")
-animation = &"on"
+animation = &"off"
 centered = false
 offset = Vector2(12, 0)
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="radius" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0, -28)
+position = Vector2(10, -28)
 shape = SubResource("CircleShape2D_ncfea")
