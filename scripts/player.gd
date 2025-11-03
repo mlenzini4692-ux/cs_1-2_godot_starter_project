@@ -23,6 +23,7 @@ var enemy
 @export var health = 100
 # TODO: Add projectile scene for shooting
 # var projectile_scene = preload("res://scenes/projectile.tscn")
+
 func change_coins(amount:int):
 	coins += amount
 	print ("you have collected " + str(coins) + " coins")
@@ -49,8 +50,8 @@ func _physics_process(_delta):
 	# TODO: Set the player's velocity (how fast they're moving)
 	# Godot's CharacterBody2D uses a velocity system
 	
-	if lever1 and lever4 and lever2 and !lever3:
-		die()
+	#if lever1 and lever4 and lever2 and !lever3:
+		#die()
 		
 		
 	# TODO: Update facing direction based on movement
@@ -155,10 +156,8 @@ func die():
 		get_parent().add_child(new_game_over)
 		new_game_over.global_position = position
 		new_game_over.position = Vector2(580,550)
-		queue_free()
 
-	
-
+		#scale_amount_set_param(4)
 
 func _on_melee_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemy"):
