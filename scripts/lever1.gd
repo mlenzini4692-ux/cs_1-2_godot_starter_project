@@ -9,7 +9,6 @@ var trophy_scene = preload("res://scenes/trophy.tscn")
 
 func _ready() -> void:
 	animated_sprite_2d.play("off")
-
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("ui_select")and in_range == true:
 		if name == "Lever1":
@@ -40,21 +39,12 @@ func _process(_delta: float) -> void:
 			else: 
 				player.lever4 = true
 				animated_sprite_2d.play("on")
-
 	if player.lever1 and player.lever3 and !player.lever4 and !player.lever2:
+		await get_tree().create_timer(2).timeout
 		var trophy = trophy_scene.instantiate()
 		get_parent().add_child(trophy)
 		
 		trophy.global_position = position + Vector2(100,400)
-		on=true
-		animated_sprite_2d.play("on")
-		print ("lever on")
-	if Input.is_action_just_pressed("ui_select")and in_range == false:
-		on=false
-		animated_sprite_2d.play("off")
-func _on_body_entered(body: Area2D):
-	if body.name == "Player":
-		in_range = true
 		
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.name == "Player":

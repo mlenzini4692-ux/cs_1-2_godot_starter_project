@@ -1,45 +1,88 @@
 extends CharacterBody2D
+var in_range = false
+var chasing = false
+var melee = false
+var health = 3
+var speed = 150
 
-# TODO: Extend your enum from Lesson 8 to include ATTACK state
-# Look at "Understanding Enums" documentation
-# You need IDLE, PATROL, CHASE, and ATTACK states
-func on_body_entered(body):
-	pass
-# TODO: Add all your variables from Lesson 8
-# State tracking, timers, patrol variables, player reference, chase distances
-
-# TODO: Add new variables for attack behavior  
-# Look at "Attack Timing and Cooldowns" documentation
-# You need: attack distance, attack damage, attack timing variables
+@onready var player: CharacterBody2D = %Player
+@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 
 func _ready():
-	# TODO: Set up starting conditions like in Lesson 8
-	# Initialize all your variables and get player reference
 	pass
 
-func _physics_process(_delta):
-	# TODO: Handle current state behavior for all four states
-	# Look at "Organizing State Behavior" documentation
-	# IDLE, PATROL, CHASE, and ATTACK all need different behaviors
-	
-	# TODO: Calculate distance to player
-	# Look at "Distance Calculations" documentation
-	
-	# TODO: Update state based on multiple distance ranges
-	# Look at "Multiple Distance Ranges" and "Complex State Switching" documentation
-	# You need attack range, chase range, and patrol/detection range
-	
-	# TODO: Update attack timers
-	# Look at "Attack Timing and Cooldowns" documentation
-	pass
+func _process(_delta: float) -> void:
+	if melee and !chasing and !in_range:
+		if name == "MeleeMinotaur":
+			pass
+	elif !melee and chasing and !in_range:
+		if name == "MeleeMinotaur":
+			pass
+	elif !melee and !chasing and in_range:
+		if name == "MeleeMinotaur":
+			pass
+	elif !melee and !chasing and !in_range:
+		if name == "MeleeMinotaur":
+			pass
 
-# TODO: Create state handler functions for all four states
-# handle_idle_state, handle_patrol_state, handle_chase_state, handle_attack_state
-# Look at "Attack Implementation Patterns" documentation for attack state
+			
+func _on_melee_body_entered(body: Node2D) -> void:
+	if body.name =="Player":
+		in_range=false
+		chasing=false
+		melee=true
+		
+func _on_melee_body_exited(body: Node2D) -> void:
+	if body.name =="Player":
+		in_range=false
+		chasing=true
+		melee=false
+		
+func _on_chase_body_entered(body: Node2D) -> void:
+	if body.name =="Player":
+		in_range=false
+		chasing=true
+		melee=false
+		
+func _on_chase_body_exited(body: Node2D) -> void:
+	if body.name =="Player":
+		in_range = true
+		chasing=false
+		melee=false
+		
+func _on_range_body_entered(body: Node2D) -> void:
+	if body.name =="Player":
+		in_range = true
+		chasing = false
+		melee = false
+		
+func _on_range_body_exited(body: Node2D) -> void:
+	if body.name =="Player":
+		in_range = false
+		chasing = false
+		melee = false
 
-# TODO: Create attack function
-# Look at "Calling Functions on Other Objects" documentation  
-# This should call the player's change_health function with negative damage
-
-# TODO: Add comprehensive debug print statements
-# Print current state, distance to player, attack timers, etc.
+func update_animation():
+	if melee == true:
+		animated_sprite_2d.play("attack_ + facing")
+			
+#Things we need (maybe)
+	#if xDirection>0:
+		#facing = "right"
+		#melee_hitbox.position = Vector2(30,-15)
+	#elif xDirection<0:
+		#facing = "left"
+		#melee_hitbox.position = Vector2(-30,-15)
+	#elif yDirection >0:
+		#facing = "down"	
+		#melee_hitbox.position = Vector2(0,20)
+	#elif yDirection <0:
+		#facing = "up"	
+		#melee_hitbox.position = Vector2(0,-45)
+		
+		#func update_animation():
+	#if is_attacking == true:
+		#_animation_player.play("attack_"+ facing)
+	#elif xDirection == 0 && yDirection == 0:
+		#_animation_player.play("idle_"+ facing)
+	#else: _animation_player.play("walk_"+ facing)

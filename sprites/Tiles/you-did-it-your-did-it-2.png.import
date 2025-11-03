@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://md6yygued11j"
-path="res://.godot/imported/you-did-it-your-did-it-2.png-86fdec6a3123e1429a24d608be0a6beb.ctex"
+uid="uid://dyy8b2sxrcohg"
+path="res://.godot/imported/you-did-it-your-did-it-2.png-7d38619801c96d0d943302c71c10704f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/you-did-it-your-did-it-2.png"
-dest_files=["res://.godot/imported/you-did-it-your-did-it-2.png-86fdec6a3123e1429a24d608be0a6beb.ctex"]
+source_file="res://sprites/Tiles/you-did-it-your-did-it-2.png"
+dest_files=["res://.godot/imported/you-did-it-your-did-it-2.png-7d38619801c96d0d943302c71c10704f.ctex"]
 
 [params]
 

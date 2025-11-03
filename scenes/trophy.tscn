@@ -4,6 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://cysdl2yel5w6t" path="res://sprites/trophy.png" id="1_nxsgq"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dhcmp"]
+radius = 18.0
+height = 56.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jajkd"]
 atlas = ExtResource("1_nxsgq")
@@ -28,3 +30,5 @@ shape = SubResource("CapsuleShape2D_dhcmp")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_5lkj5")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

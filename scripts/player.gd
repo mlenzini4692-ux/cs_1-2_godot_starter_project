@@ -23,7 +23,6 @@ var enemy
 @export var health = 100
 # TODO: Add projectile scene for shooting
 # var projectile_scene = preload("res://scenes/projectile.tscn")
-
 func change_coins(amount:int):
 	coins += amount
 	print ("you have collected " + str(coins) + " coins")
@@ -50,10 +49,10 @@ func _physics_process(_delta):
 	# TODO: Set the player's velocity (how fast they're moving)
 	# Godot's CharacterBody2D uses a velocity system
 	
-	#if lever1 and lever4 and lever2 and !lever3:
-		#die()
-		
-		
+	if !lever1 and lever4 and lever2 and !lever3:
+		await get_tree().create_timer(3).timeout
+		die()
+			#queue_free()
 	# TODO: Update facing direction based on movement
 	# Use if statements to check xDirection and yDirection
 	# Set facing to "right", "left", "down", or "up"
@@ -80,6 +79,8 @@ func _physics_process(_delta):
 	move_and_slide()
 	if Input.is_action_just_pressed("ui_text_delete"):
 		die()
+		await get_tree().create_timer(2).timeout
+			#queue_free()
 	if Input.is_action_just_pressed("ui_select"):
 		is_attacking = true	
 	if is_attacking:
@@ -117,14 +118,14 @@ func change_health(amount):
 	elif health <= 0 :
 		health = 0
 		print ("Player died!")
-		queue_free()
+		die()
+			#queue_free()
 	# TODO: Print the new health value
 	# TODO: Check if health <= 0 for death (optional challenge)
 	print ("Player health:", str(health))
 	print("Health changed by: ", amount)
 	
-	if health == 0:
-		die()
+
 # TODO: Create shooting function
 func shoot():
 	# TODO: Create a new projectile instance
@@ -151,13 +152,14 @@ func shoot():
 	print("Shot projectile facing:", facing)
 
 func die():
-		var game_over_scene = preload("res://scenes/game_over.tscn")
-		var new_game_over = game_over_scene.instantiate()
-		get_parent().add_child(new_game_over)
-		new_game_over.global_position = position
-		new_game_over.position = Vector2(580,550)
+	var game_over_scene = preload("res://scenes/game_over.tscn")
+	var new_game_over = game_over_scene.instantiate()
+	get_parent().add_child(new_game_over)
+	new_game_over.global_position = position
+	new_game_over.position = Vector2(580,550)
+	
+	
 
-		#scale_amount_set_param(4)
 
 func _on_melee_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemy"):
