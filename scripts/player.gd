@@ -23,6 +23,8 @@ var enemy
 @export var health = 100
 # TODO: Add projectile scene for shooting
 # var projectile_scene = preload("res://scenes/projectile.tscn")
+
+
 func change_coins(amount:int):
 	coins += amount
 	print ("you have collected " + str(coins) + " coins")
