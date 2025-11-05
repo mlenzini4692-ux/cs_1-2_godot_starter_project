@@ -1,11 +1,11 @@
 [gd_scene load_steps=6 format=3 uid="uid://bkfitmjt38iui"]
 
-[ext_resource type="Script" uid="uid://7ohkdmws4hfk" path="res://scenes/trophy.gd" id="1_dhcmp"]
+[ext_resource type="Script" uid="uid://7ohkdmws4hfk" path="res://scripts/trophy.gd" id="1_dhcmp"]
 [ext_resource type="Texture2D" uid="uid://cysdl2yel5w6t" path="res://sprites/trophy.png" id="1_nxsgq"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dhcmp"]
-radius = 18.0
-height = 56.0
+radius = 14.0
+height = 52.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jajkd"]
 atlas = ExtResource("1_nxsgq")

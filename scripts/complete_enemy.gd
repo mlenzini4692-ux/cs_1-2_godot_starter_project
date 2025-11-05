@@ -4,9 +4,12 @@ var chasing = false
 var melee = false
 var health = 3
 var speed = 150
-
+var projectile_scene = preload("res://scenes/enemy_arrow.tscn")
+var direction = position
+var start_time = 1
+var timer = start_time
 @onready var player: CharacterBody2D = %Player
-@onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 func _ready():
 	pass
@@ -21,11 +24,19 @@ func _process(_delta: float) -> void:
 	elif !melee and !chasing and in_range:
 		if name == "MeleeMinotaur":
 			pass
+		
 	elif !melee and !chasing and !in_range:
 		if name == "MeleeMinotaur":
 			pass
-
-			
+	
+	
+	
+	if in_range:
+		timer -= _delta
+		if timer<0:
+			shoot()
+			timer = start_time
+	
 func _on_melee_body_entered(body: Node2D) -> void:
 	if body.name =="Player":
 		in_range=false
@@ -55,7 +66,7 @@ func _on_range_body_entered(body: Node2D) -> void:
 		in_range = true
 		chasing = false
 		melee = false
-		
+	
 func _on_range_body_exited(body: Node2D) -> void:
 	if body.name =="Player":
 		in_range = false
@@ -64,8 +75,15 @@ func _on_range_body_exited(body: Node2D) -> void:
 
 func update_animation():
 	if melee == true:
-		animated_sprite_2d.play("attack_ + facing")
+		sprite.play("attack_ + facing")
 			
+func shoot():
+	var new_projectile = projectile_scene.instantiate()
+	new_projectile.global_position = position
+	get_parent().add_child(new_projectile)
+	new_projectile.set_direction(player.position)
+	if direction.x <0:
+		scale.x *=-1
 #Things we need (maybe)
 	#if xDirection>0:
 		#facing = "right"

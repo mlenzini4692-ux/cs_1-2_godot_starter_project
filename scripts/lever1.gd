@@ -39,7 +39,8 @@ func _process(_delta: float) -> void:
 			else: 
 				player.lever4 = true
 				animated_sprite_2d.play("on")
-	if player.lever1 and player.lever3 and !player.lever4 and !player.lever2:
+	#if player.lever1 and player.lever3 and !player.lever4 and !player.lever2:
+	if Input.is_action_just_pressed("ui_menu"):
 		await get_tree().create_timer(2).timeout
 		var trophy = trophy_scene.instantiate()
 		get_parent().add_child(trophy)

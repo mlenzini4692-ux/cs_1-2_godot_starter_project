@@ -51,7 +51,7 @@ func _physics_process(_delta):
 	# TODO: Set the player's velocity (how fast they're moving)
 	# Godot's CharacterBody2D uses a velocity system
 	
-	if !lever1 and lever4 and lever2 and !lever3:
+	if !lever1 and !lever3 and lever4 and lever2:
 		await get_tree().create_timer(3).timeout
 		die()
 			#queue_free()
@@ -91,7 +91,8 @@ func _physics_process(_delta):
 			is_attacking = false
 			attack_timer = .67
 	if current_enemy != null and is_attacking:
-			current_enemy.queue_free()
+		print(current_enemy)
+		current_enemy.queue_free()
 	if Input.is_action_just_pressed("ui_focus_next"):
 		ySpeed = 400
 		xSpeed = 400
@@ -159,7 +160,7 @@ func die():
 	get_parent().add_child(new_game_over)
 	new_game_over.global_position = position
 	new_game_over.position = Vector2(580,550)
-	
+	queue_free()
 	
 
 
