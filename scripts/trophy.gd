@@ -3,4 +3,5 @@ extends Area2D
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
-		pass
+		print("You hear a rumbling from the north cave")
+		queue_free()
