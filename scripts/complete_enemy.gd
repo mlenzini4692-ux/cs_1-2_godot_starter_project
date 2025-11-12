@@ -3,9 +3,10 @@ var in_range = false
 var chasing = false
 var melee = false
 var health = 3
-var speed = 150
+var xspeed = 15
+var yspeed = 15
 var projectile_scene = preload("res://scenes/enemy_arrow.tscn")
-var direction = position
+var direction
 var facing
 var start_time = 1
 var timer = start_time
@@ -17,52 +18,62 @@ func _ready():
 	pass
 
 func _process(_delta: float) -> void:
-#be warned this will break the die func needs fixing	
-
-	#if player.position.x < position.x:
-	#	facing = "left"
-	#elif player.position.x < position.x:
-	#	facing = "right"
-	#if player.position.y < position.y:
-	#	facing = "up"
-	#elif player.position.y < position.y:
-	#	facing = "down"
+	if player!=null:
+		direction = (player.position-position).normalized()
+		velocity.x = xspeed*direction.x * _delta
+		velocity.y = yspeed*direction.y * _delta
 		
-	
-	if melee and !chasing and !in_range:
-		if name == "MeleeMinotaur":
-			pass
-	elif !melee and chasing and !in_range:
-		if name == "MeleeMinotaur":
-			pass
-	elif !melee and !chasing and in_range:
-		if name == "MeleeMinotaur":
-			pass
-		
-	elif !melee and !chasing and !in_range:
-		if name == "MeleeMinotaur":
-			pass
-	
-	
-	
-	if in_range:
-		direction = (player.position)
-		timer -= _delta
-		if timer<0:
-			sprite.play("crossbow_shoot_" + facing)
-			shoot()
-			timer = start_time
+		if abs(position.x - player.position.x)< abs(position.y - player.position.y):
 			
-	if chasing:
-		pass
-			
-	if melee:
-		melee_timer -= _delta
+			if position.y < player.position.y:
+				facing = "down"
+			else:
+				facing = "up"
+		else:
+			if position.x > player.position.x:
+				facing = "left"
+			else:
+				facing = "right"
+				
 		
-		if melee_timer<0:
-			sprite.play("attack_" + facing)
-			melee_timer = start_time
-			print("attacking")
+		
+		
+		
+		if melee and !chasing and !in_range:
+			if name == "MeleeMinotaur":
+				pass
+		elif !melee and chasing and !in_range:
+			if name == "MeleeMinotaur":
+				pass
+		elif !melee and !chasing and in_range:
+			if name == "MeleeMinotaur":
+				pass
+			
+		elif !melee and !chasing and !in_range:
+			if name == "MeleeMinotaur":
+				pass
+		
+		
+		
+		if in_range:
+			direction = (player.position)
+			timer -= _delta
+			if timer<0:
+				sprite.play("crossbow_shoot_" + facing)
+				shoot()
+				timer = start_time
+				
+		if chasing:
+			sprite.play("walk_" + facing)
+		
+				
+		if melee:
+			melee_timer -= _delta
+			if melee_timer<0:
+				sprite.play("attack_" + facing)
+				melee_timer = start_time
+				print("attacking")
+		move_and_slide()
 	
 func _on_melee_body_entered(body: Node2D) -> void:
 	if body.name =="Player":

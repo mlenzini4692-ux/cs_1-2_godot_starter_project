@@ -28,37 +28,26 @@ var enemy
 func change_coins(amount:int):
 	coins += amount
 	print ("you have collected " + str(coins) + " coins")
+	
 func change_keys(amount:int):
 	keys += amount
 	print ("you have collected " + str(keys) + " keys")
+	
 func _physics_process(_delta):
-	# TODO: Get horizontal input (left/right keys)
-	# Input.get_axis checks two keys and gives us a number:
-	# - When LEFT is pressed: returns -1.0
-	# - When RIGHT is pressed: returns 1.0  
-	# - When NOTHING is pressed: returns 0.0
+	
 	xDirection = Input.get_axis("ui_left", "ui_right")
-	# TODO: Get vertical input (up/down keys)  
-	# Same idea, but for up and down movement
+	
 	yDirection = Input.get_axis("ui_up", "ui_down")
-	# TODO: Calculate X movement by multiplying direction × speed
-	# This gives us the actual pixels to move this frame
-	# If direction is 1 and speed is 300, we get 300 pixels right
-	# If direction is -1 and speed is 300, we get -300 pixels (left)
+
 	velocity.x = xSpeed*xDirection
-	# TODO: Calculate Y movement the same way
 	velocity.y = ySpeed*yDirection
-	# TODO: Set the player's velocity (how fast they're moving)
-	# Godot's CharacterBody2D uses a velocity system
+	
 	
 	if !lever1 and !lever3 and lever4 and lever2:
 		await get_tree().create_timer(3).timeout
 		die()
 			#queue_free()
-	# TODO: Update facing direction based on movement
-	# Use if statements to check xDirection and yDirection
-	# Set facing to "right", "left", "down", or "up"
-	# Only update facing when actually moving (direction != 0)
+
 	if xDirection>0:
 		facing = "right"
 		melee_hitbox.position = Vector2(30,-15)
@@ -71,18 +60,19 @@ func _physics_process(_delta):
 	elif yDirection <0:
 		facing = "up"	
 		melee_hitbox.position = Vector2(0,-45)
+		
 	if Input.is_action_just_pressed("ui_accept"):
 		shoot()
-	# TODO: Update animation based on facing direction
-	# Call your update_animation() function here
+	
 	update_animation()
-	# TODO: Actually apply the movement
-	# This is a special Godot function that makes the movement happen
+	
 	move_and_slide()
+	
 	if Input.is_action_just_pressed("ui_text_delete"):
 		die()
 		await get_tree().create_timer(2).timeout
 			#queue_free()
+			
 	if Input.is_action_just_pressed("ui_select"):
 		is_attacking = true	
 	if is_attacking:
@@ -92,12 +82,15 @@ func _physics_process(_delta):
 			attack_timer = .67
 	if current_enemy != null and is_attacking:
 		current_enemy.queue_free()
+		
 	if Input.is_action_just_pressed("ui_focus_next"):
 		ySpeed = 400
 		xSpeed = 400
+		
 	if Input.is_action_just_released("ui_focus_next"):
 		ySpeed = 200
 		xSpeed = 200
+		
 # TODO: Create animation function (add this outside of _physics_process)
 func update_animation():
 	if is_attacking == true:
@@ -105,6 +98,7 @@ func update_animation():
 	elif xDirection == 0 && yDirection == 0:
 		_animation_player.play("idle_"+ facing)
 	else: _animation_player.play("walk_"+ facing)
+	
 		# TODO: Set the animation based  on the facing direction
 		# Use: _animation_player.play("idle_" + facing)
 		# This combines "idle_" with whatever direction we're facing
@@ -122,6 +116,7 @@ func change_health(amount):
 		print ("Player died!")
 		die()
 			#queue_free()
+			
 	# TODO: Print the new health value
 	# TODO: Check if health <= 0 for death (optional challenge)
 	print ("Player health:", str(health))

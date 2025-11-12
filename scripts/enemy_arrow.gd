@@ -1,4 +1,5 @@
 extends Area2D
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 # TODO: Add speed variable for how fast projectile moves
 var speed = 400
@@ -15,6 +16,10 @@ func _process(_delta):
 	# Similar to player movement: velocity = direction * speed
 	position += speed * direction * _delta
 	
+	if direction.x < 0:
+		sprite.flip_h = true
+	else:
+		sprite.flip_h = false
 	
 	
 
