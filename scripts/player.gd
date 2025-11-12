@@ -91,7 +91,6 @@ func _physics_process(_delta):
 			is_attacking = false
 			attack_timer = .67
 	if current_enemy != null and is_attacking:
-		print(current_enemy)
 		current_enemy.queue_free()
 	if Input.is_action_just_pressed("ui_focus_next"):
 		ySpeed = 400

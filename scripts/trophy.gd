@@ -3,4 +3,6 @@ extends Area2D
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
-		pass
+		print("trophy got")
+		print("yippee")
+		queue_free()

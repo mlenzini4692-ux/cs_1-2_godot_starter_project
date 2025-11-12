@@ -82,7 +82,7 @@ func shoot():
 	new_projectile.global_position = position
 	get_parent().add_child(new_projectile)
 	new_projectile.set_direction(player.position)
-	if direction.x <0:
+	if player.position.x <0:
 		scale.x *=-1
 #Things we need (maybe)
 	#if xDirection>0:

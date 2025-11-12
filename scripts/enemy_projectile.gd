@@ -16,12 +16,10 @@ func _process(_delta):
 	position += speed * direction * _delta
 	
 	
-
 	
 
 # TODO: Create function to set projectile direction
 func set_direction(_target):
-	
 	direction = (_target-position).normalized()
 	print(position)
 	
