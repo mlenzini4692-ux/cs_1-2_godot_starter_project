@@ -10,11 +10,11 @@ var direction : Vector2
 func _ready() -> void:
 	print("created")
 
-func _process(_delta):
+func _process(delta):
 	
 	# TODO: Calculate movement using direction and speed
 	# Similar to player movement: velocity = direction * speed
-	position += speed * direction * _delta
+	position += speed * direction * delta
 	
 	if direction.x < 0:
 		sprite.flip_h = true

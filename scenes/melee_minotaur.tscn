@@ -1001,16 +1001,16 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_adppo"]
-size = Vector2(38, 104)
+size = Vector2(48, 104)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vltjp"]
-radius = 55.145264
+radius = 44.181442
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_adppo"]
 radius = 92.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uk8e4"]
-radius = 159.20113
+radius = 164.00305
 
 [node name="MeleeMinotaur" type="CharacterBody2D" groups=["enemy"]]
 position = Vector2(0, -30)
@@ -1022,7 +1022,7 @@ animation = &"attack_down"
 autoplay = "crossbow_shoot_right"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." groups=["enemy"]]
-position = Vector2(-0.5, 4)
+position = Vector2(2, 4)
 scale = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_adppo")
 

@@ -3,8 +3,8 @@ var in_range = false
 var chasing = false
 var melee = false
 var health = 3
-var xspeed = 15
-var yspeed = 15
+var xspeed = 100
+var yspeed = 100
 var projectile_scene = preload("res://scenes/enemy_arrow.tscn")
 var direction
 var facing
@@ -19,9 +19,8 @@ func _ready():
 
 func _process(_delta: float) -> void:
 	if player!=null:
-		direction = (player.position-position).normalized()
-		velocity.x = xspeed*direction.x * _delta
-		velocity.y = yspeed*direction.y * _delta
+		direction = (player.position-position)
+		
 		
 		if abs(position.x - player.position.x)< abs(position.y - player.position.y):
 			
@@ -34,7 +33,6 @@ func _process(_delta: float) -> void:
 				facing = "left"
 			else:
 				facing = "right"
-				
 		
 		
 		
@@ -65,14 +63,23 @@ func _process(_delta: float) -> void:
 				
 		if chasing:
 			sprite.play("walk_" + facing)
+			velocity.x = xspeed*direction.x * _delta
+			velocity.y = yspeed*direction.y * _delta
+		else:
+			velocity.x = 0
+			velocity.y = 0
 		
+		if !chasing and !in_range and !melee:
+			sprite.play("idle_"+facing)
 				
 		if melee:
 			melee_timer -= _delta
 			if melee_timer<0:
 				sprite.play("attack_" + facing)
 				melee_timer = start_time
+				player.change_health(-10)
 				print("attacking")
+				
 		move_and_slide()
 	
 func _on_melee_body_entered(body: Node2D) -> void:
@@ -124,23 +131,3 @@ func shoot():
 		
 		
 		
-#Things we need (maybe)
-	#if xDirection>0:
-		#facing = "right"
-		#melee_hitbox.position = Vector2(30,-15)
-	#elif xDirection<0:
-		#facing = "left"
-		#melee_hitbox.position = Vector2(-30,-15)
-	#elif yDirection >0:
-		#facing = "down"	
-		#melee_hitbox.position = Vector2(0,20)
-	#elif yDirection <0:
-		#facing = "up"	
-		#melee_hitbox.position = Vector2(0,-45)
-		
-		#func update_animation():
-	#if is_attacking == true:
-		#_animation_player.play("attack_"+ facing)
-	#elif xDirection == 0 && yDirection == 0:
-		#_animation_player.play("idle_"+ facing)
-	#else: _animation_player.play("walk_"+ facing)

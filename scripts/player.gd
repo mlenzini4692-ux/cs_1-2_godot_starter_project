@@ -10,11 +10,13 @@ var coins = 0
 var keys = 0
 @onready var melee_hitbox: CollisionShape2D = $Melee/melee_hitbox
 var current_enemy
+var faraway_enemy
 var lever1 = false
 var lever2 = false
 var lever3 = false
 var lever4 = false
 var is_attacking = false
+var is_shooting = false
 var attack_timer = .67
 var enemy_timer = .67
 var enemy
@@ -135,7 +137,10 @@ func shoot():
 	# Look at the "Setting Object Position" example
 	new_projectile.global_position = position
 	new_projectile.position += Vector2(0,-25)
-	
+	is_shooting = true	
+	if current_enemy != null and is_shooting:
+		print("shot")
+		#current_enemy.queue_free()
 	# TODO: Set projectile direction using facing variable
 	# Look at the "Calling Functions on Other Objects" example
 	

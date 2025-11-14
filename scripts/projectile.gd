@@ -2,6 +2,7 @@ extends Area2D
 
 # TODO: Add speed variable for how fast projectile moves
 var speed = 400
+@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 
 # TODO: Add direction variable to store which way to move
 var direction = Vector2(1,0)
@@ -45,17 +46,16 @@ func set_direction(_facing : String):
 	
 
 
-func _on_visible_on_screen_notifier_2d_screen_exited():
-	# TODO: Remove projectile when it goes off screen
-	# Use: queue_free()
-	queue_free()
-	# TODO: Print when projectile is removed
-	# print("Projectile removed - went off screen")
-	print("Projectile removed - went off screen")
 func _on_melee_body_entered(body: Node2D) -> void:
 	if body.is_in_group("enemy"):
 		current_enemy = body
 		print("enemy got shot!")
+		
+		
 func _on_melee_body_exited(body: Node2D) -> void:
 	if body.is_in_group("enemy"):
 		current_enemy = null
+
+
+func _on_body_exited(body: Node2D) -> void:
+	pass # Replace with function body.
