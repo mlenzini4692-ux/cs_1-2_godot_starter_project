@@ -57,5 +57,5 @@ func _on_melee_body_exited(body: Node2D) -> void:
 		current_enemy = null
 
 
-func _on_body_exited(body: Node2D) -> void:
+func _on_body_exited(_body: Node2D) -> void:
 	pass # Replace with function body.

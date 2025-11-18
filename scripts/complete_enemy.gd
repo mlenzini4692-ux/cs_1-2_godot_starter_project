@@ -2,7 +2,6 @@ extends CharacterBody2D
 var in_range = false
 var chasing = false
 var melee = false
-var health = 3
 var xspeed = 100
 var yspeed = 100
 var projectile_scene = preload("res://scenes/enemy_arrow.tscn")
